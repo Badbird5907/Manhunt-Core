@@ -7,6 +7,7 @@ import net.badbird5907.blib.objects.tuple.Pair;
 import net.badbird5907.blib.util.Logger;
 import net.badbird5907.blib.util.ReflectionUtils;
 import net.badbird5907.manhuntcore.ManhuntCore;
+import net.badbird5907.manhuntcore.api.events.PostScenarioLoadEvent;
 import net.badbird5907.manhuntcore.manager.Manager;
 import net.badbird5907.manhuntcore.object.ScenarioLoadResult;
 import net.badbird5907.manhuntcore.scenario.Scenario;
@@ -41,6 +42,7 @@ public class ScenarioManager extends Manager {
         Scenario scenario = pair.getValue1();
         activeScenarios.put(pair.getValue0().name().toLowerCase(),pair.getValue0(),scenario);
         Bukkit.getServer().getPluginManager().registerEvents(scenario,ManhuntCore.getInstance());
+        new PostScenarioLoadEvent(scenario, scenario.getScenarioInfo()).call();
         return ScenarioLoadResult.SUCCESS;
     }
     @Override

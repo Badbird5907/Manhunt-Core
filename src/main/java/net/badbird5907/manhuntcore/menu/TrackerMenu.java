@@ -46,7 +46,7 @@ public class TrackerMenu extends PaginatedMenu {
         @Override
         public ItemStack getItem(Player player) {
             boolean trackingRightNow = PlayerManager.getOnlinePlayerData(player).getTracking() == player1.getUniqueId();
-            return new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial()).name((runner ? CC.GREEN : CC.RED) + player.getName()).lore(trackingRightNow ? CC.RED + "Click to remove tracker" : CC.YELLOW + "Click to track!").build();
+            return new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial()).name((runner ? CC.GREEN : CC.RED) + player.getName()).lore(trackingRightNow ? CC.RED + "Click to remove tracker" : CC.YELLOW + "Click to track!").toSkullBuilder().withOwner(player1.getUniqueId()).buildSkull();
         }
 
         @Override
