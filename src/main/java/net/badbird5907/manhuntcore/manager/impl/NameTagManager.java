@@ -11,10 +11,16 @@ import org.bukkit.scoreboard.Team;
 @Getter
 public class NameTagManager extends Manager {
     @Getter
-    private static Team greenTeam,redTeam;
+    private static Team greenTeam, redTeam;
+
     @Override
     public void init(ManhuntCore plugin) {
         Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+        if (sb.getTeam("runner") != null) {
+            sb.getTeam("runner").unregister();
+        }
+        if (sb.getTeam("hunter") != null)
+            sb.getTeam("hunter").unregister();
         greenTeam = sb.registerNewTeam("runner");
         redTeam = sb.registerNewTeam("hunter");
         greenTeam.setPrefix(CC.GREEN);

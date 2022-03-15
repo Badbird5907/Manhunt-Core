@@ -24,9 +24,9 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.UUID;
 
 public class TrackerManager extends Manager implements Listener {
-    private static final NamespacedKey key = new NamespacedKey(ManhuntCore.getInstance(),"manhunt:tracker");
-    private static final NamespacedKey trackingkey = new NamespacedKey(ManhuntCore.getInstance(),"manhunt:tracking");
-    private static final ItemStack COMPASS = new ItemBuilder(XMaterial.COMPASS.parseItem()).name(CC.AQUA + "Player Tracker").lore(CC.GREEN + "Tracking %player%").glow().build();
+    private static final NamespacedKey key = new NamespacedKey(ManhuntCore.getInstance(),"tracker");
+    private static final NamespacedKey trackingkey = new NamespacedKey(ManhuntCore.getInstance(),"tracking");
+    private static final ItemStack COMPASS = new ItemBuilder(XMaterial.COMPASS.parseItem()).name(CC.AQUA + "Player Tracker").lore(CC.GREEN + "Tracking " + CC.RED + "None").glow().build();
     static {
         ItemMeta meta = COMPASS.getItemMeta();
         meta.getPersistentDataContainer().set(key,PersistentDataType.INTEGER,1);
@@ -110,6 +110,8 @@ public class TrackerManager extends Manager implements Listener {
     public static boolean isTrackerCompass(ItemStack itemStack){
         if (itemStack == null)return false;
         ItemMeta meta = itemStack.getItemMeta();
+        if (meta == null || meta.getPersistentDataContainer() == null)
+            return false;
         if (meta.getPersistentDataContainer().has(key, PersistentDataType.INTEGER)){
             return meta.getPersistentDataContainer().get(key,PersistentDataType.INTEGER).intValue() == 1;
         }return false;

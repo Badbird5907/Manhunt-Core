@@ -7,27 +7,39 @@ import net.badbird5907.manhuntcore.manager.impl.NameTagManager;
 import net.badbird5907.manhuntcore.manager.impl.PlayerManager;
 import net.badbird5907.manhuntcore.manager.impl.ScenarioManager;
 import net.badbird5907.manhuntcore.manager.impl.TrackerManager;
+import net.badbird5907.manhuntcore.object.UpdateRunnable;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
 @Setter
 public final class ManhuntCore extends JavaPlugin {
+    public ManhuntCore() {
+        super();
+        instance = this;
+    }
     @Getter private static ManhuntCore instance;
 
-    private ScenarioManager scenarioManager = new ScenarioManager();
-    private PlayerManager playerManager = new PlayerManager();
-    private TrackerManager trackerManager = new TrackerManager();
-    private NameTagManager nameTagManager = new NameTagManager();
+    private ScenarioManager scenarioManager;
+    private PlayerManager playerManager;
+    private TrackerManager trackerManager;
+    private NameTagManager nameTagManager;
 
     @Override
     public void onEnable() {
-        instance = this;
         bLib.create(this);
         bLib.getCommandFramework().registerCommandsInPackage("net.badbird5907.manhuntcore.command");
+
+        scenarioManager = new ScenarioManager();
+        playerManager = new PlayerManager();
+        trackerManager = new TrackerManager();
+        nameTagManager = new NameTagManager();
+
         scenarioManager.init(this);
         playerManager.init(this);
         trackerManager.init(this);
         nameTagManager.init(this);
+
+        new UpdateRunnable().runTaskTimer(this, 0, 10);
     }
 
     @Override

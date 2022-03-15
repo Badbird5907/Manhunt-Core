@@ -58,7 +58,7 @@ public class PlayerManager extends Manager implements Listener {
     }
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        if (!players.containsKey(event.getPlayer().getUniqueId()))
+        if (players.containsKey(event.getPlayer().getUniqueId()))
             return;
         onlinePlayerDataMap.put(event.getPlayer().getUniqueId(),new OnlinePlayerData(event.getPlayer().getUniqueId(),event.getPlayer().getName()));
         Role role = players.get(event.getPlayer().getUniqueId());

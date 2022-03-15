@@ -1,4 +1,4 @@
-name: Manhunt Core
+name: ManhuntCore
 version: ${project.version}
 main: net.badbird5907.manhuntcore.ManhuntCore
 api-version: 1.17
